@@ -31,7 +31,6 @@ Entender fundamentos que serão usados no React Native.
 
 * function
 * arrow function
-* interface
 * type
 * enum
 
@@ -48,16 +47,40 @@ const soma = (a: number, b: number): number => a + b;
 
 type Status = 'loading' | 'success' | 'error';
 
+enum StatusEnum {
+  ACTIVE,
+  INACTIVE,
+  PENDING,
+}
+
+enum Role {
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+}
+
+interface User {
+  name: string;
+  role: Role;
+}
+
+const user: User = {
+  name: 'Anderson',
+  role: Role.ADMIN,
+};
+
 export default function App() {
   const mensagem = saudacao('Anderson');
   const total = soma(10, 5);
   const status: Status = 'success';
+  const statusEnum = StatusEnum.ACTIVE;
 
   return (
     <View style={{ padding: 20 }}>
       <Text>{mensagem}</Text>
       <Text>Total: {total}</Text>
       <Text>Status: {status}</Text>
+      <Text>Status Enum: {statusEnum}</Text>
+      <Text>User Role: {user.role}</Text>
     </View>
   );
 }
@@ -114,6 +137,55 @@ export default function App() {
     </View>
   );
 }
+```
+
+## readonly (somente leitura)
+
+```tsx
+interface User {
+  readonly id: number;
+  name: string;
+}
+
+const user: User = {
+  id: 1,
+  name: 'Anderson',
+};
+
+// ❌ erro
+user.id = 2;
+```
+
+## readonly usando em classe (somente leitura)
+
+```tsx
+class User {
+  readonly id: number;
+
+  constructor(id: number) {
+    this.id = id;
+  }
+}
+
+const u = new User(1);
+
+// ❌ erro
+u.id = 2;
+```
+
+## optional (?)
+
+```tsx
+interface User {
+  id: number;
+  name?: string;
+}
+
+const user: User = {
+  id: 1,
+};
+
+// ok — name é opcional
 ```
 
 ---
