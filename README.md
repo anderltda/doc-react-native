@@ -1,22 +1,37 @@
 # 🚀 React Native + Expo + TypeScript Roadmap
 
-Guia do **básico ao avançado**, construção de um app real.
+Guia do **básico ao avançado**, com foco em prática, fundamentos sólidos e construção de um app real.
 
 ---
 
 # Criação do Projeto (Template TypeScript)
 
-Rodar:
+## Criar projeto
+
 ```bash
 npx create-expo-app app-react-native --template blank-typescript
 cd app-react-native
 npm install
 ```
 
-Rodar:
+## Executar projeto
+
+```bash
+npx expo start
+```
+
+## Executar no navegador
+
+Em muitos casos o Expo já resolve isso sozinho. Se o ambiente precisar, instale também:
+
 ```bash
 npx expo install react-native-web react-dom
-npx expo start
+```
+
+Depois execute:
+
+```bash
+npx expo start --web
 ```
 
 ---
@@ -31,6 +46,7 @@ Entender fundamentos que serão usados no React Native.
 
 * function
 * arrow function
+* interface
 * type
 * enum
 
@@ -48,9 +64,9 @@ const soma = (a: number, b: number): number => a + b;
 type Status = 'loading' | 'success' | 'error';
 
 enum StatusEnum {
-  ACTIVE,
-  INACTIVE,
-  PENDING,
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
+  PENDING = 'PENDING',
 }
 
 enum Role {
@@ -86,6 +102,14 @@ export default function App() {
 }
 ```
 
+### 🔍 Explicação
+
+* `function saudacao(...)` cria uma função tradicional com parâmetro e retorno tipados
+* `const soma = (...) => ...` mostra uma arrow function, muito usada no React
+* `interface User` define o formato de um objeto
+* `type Status` restringe os valores permitidos
+* `enum` organiza constantes nomeadas
+
 ---
 
 # Classes e Tipagem Avançada
@@ -96,7 +120,7 @@ export default function App() {
 * extends
 * implements
 * readonly
-* optional ( ? )
+* optional (`?`)
 
 ## 💻 Exemplo (App)
 
@@ -126,20 +150,40 @@ class Car extends Vehicle {
   }
 }
 
+interface User {
+  readonly id: number;
+  name?: string;
+}
+
 export default function App() {
   const dog = new Dog('Rex');
   const car = new Car('Toyota', 'Corolla');
+
+  const user: User = {
+    id: 1,
+    name: 'Anderson',
+  };
 
   return (
     <View style={{ padding: 20 }}>
       <Text>{dog.name} faz {dog.makeSound()}</Text>
       <Text>{car.brand} - {car.model}</Text>
+      <Text>ID: {user.id}</Text>
+      <Text>Nome: {user.name ?? 'Não informado'}</Text>
     </View>
   );
 }
 ```
 
-## readonly (somente leitura)
+### 🔍 Explicação
+
+* `class` cria uma estrutura orientada a objetos
+* `implements Animal` obriga a classe a seguir o contrato da interface
+* `extends Vehicle` permite herança
+* `readonly id` não pode ser alterado depois da criação
+* `name?` significa que o campo é opcional
+
+## Exemplo isolado — `readonly`
 
 ```tsx
 interface User {
@@ -153,27 +197,10 @@ const user: User = {
 };
 
 // ❌ erro
-user.id = 2;
+// user.id = 2;
 ```
 
-## readonly usando em classe (somente leitura)
-
-```tsx
-class User {
-  readonly id: number;
-
-  constructor(id: number) {
-    this.id = id;
-  }
-}
-
-const u = new User(1);
-
-// ❌ erro
-u.id = 2;
-```
-
-## optional (?)
+## Exemplo isolado — `optional`
 
 ```tsx
 interface User {
@@ -184,14 +211,15 @@ interface User {
 const user: User = {
   id: 1,
 };
-
-// ok — name é opcional
 ```
 
 ---
 
 # Lógica de Programação com TypeScript
 
+## Objetivo
+
+Aprender estruturas básicas que serão usadas em praticamente qualquer tela ou regra de negócio.
 
 ## 📚 Conteúdos
 
@@ -233,7 +261,7 @@ export default function App() {
 
 * `if` avalia uma condição
 * `else` executa quando a condição é falsa
-* muito usado para renderização condicional e validação
+* muito usado em validação e fluxo de tela
 
 ## 💻 Exemplo (App) — operador ternário
 
@@ -253,8 +281,8 @@ export default function App() {
 
 ### 🔍 Explicação
 
-* ternário é uma forma curta de `if/else`
-* muito usado dentro do JSX
+* o ternário é uma forma curta de `if/else`
+* é muito usado dentro do JSX
 
 ## 💻 Exemplo (App) — switch
 
@@ -289,8 +317,8 @@ export default function App() {
 
 ### 🔍 Explicação
 
-* `switch` é útil quando há várias opções de decisão
-* comum para status, tipo de usuário, perfil, ambiente
+* `switch` é útil quando há várias possibilidades fixas
+* comum para status, perfil e tipo de tela
 
 ## 💻 Exemplo (App) — for
 
@@ -317,7 +345,7 @@ export default function App() {
 ### 🔍 Explicação
 
 * `for` repete um bloco várias vezes
-* em React Native, normalmente você usa `for` para preparar dados e `map` para renderizar
+* normalmente é usado para montar dados antes da renderização
 
 ## 💻 Exemplo (App) — while
 
@@ -368,7 +396,7 @@ export default function App() {
 
 ### 🔍 Explicação
 
-* `map` percorre arrays
+* `map` percorre arrays e transforma itens
 * é uma das formas mais usadas para renderizar listas
 
 ## 💻 Exemplo (App) — filter
@@ -393,7 +421,7 @@ export default function App() {
 ### 🔍 Explicação
 
 * `filter` retorna apenas os elementos que atendem à condição
-* muito usado em busca, filtros de tabela e listas
+* muito usado em busca e filtros
 
 ## 💻 Exemplo (App) — find
 
@@ -423,8 +451,8 @@ export default function App() {
 
 ### 🔍 Explicação
 
-* `find` retorna o primeiro item encontrado
-* ideal para buscar um registro específico
+* `find` retorna o primeiro item que corresponde à condição
+* ideal para localizar um item específico
 
 ## 💻 Exemplo (App) — operadores lógicos
 
@@ -447,7 +475,7 @@ export default function App() {
 
 * `&&` significa E
 * `||` significa OU
-* `!` inverte o valor booleano
+* `!` inverte um booleano
 
 ## 💻 Exemplo (App) — optional chaining
 
@@ -480,23 +508,27 @@ export default function App() {
 ### 🔍 Explicação
 
 * `?.` evita erro ao acessar algo que pode ser `undefined`
-* `??` define valor padrão
+* `??` define um valor padrão
 
 ---
 
 # Condicionais em React Native (Component)
 
+## Objetivo
+
+Aplicar regras de renderização diretamente na interface.
+
 ## 📚 Conteúdos
 
 * if dentro da função
-* Operador ternário
-* Renderização condicional com &&
-* Condição com função
-* Loops map
-* Lista com objetos
-* (condição + loop + estado)
+* operador ternário
+* renderização condicional com `&&`
+* condição com função
+* loops com `map`
+* lista com objetos
+* condição + loop + estado
 
-## if dentro da função
+## 💻 Exemplo (App) — if dentro da função
 
 ```tsx
 import { View, Text } from 'react-native';
@@ -506,21 +538,26 @@ export default function App() {
 
   if (!isLogged) {
     return (
-      <View>
+      <View style={{ padding: 20 }}>
         <Text>Usuário não logado</Text>
       </View>
     );
   }
 
   return (
-    <View>
+    <View style={{ padding: 20 }}>
       <Text>Bem-vindo!</Text>
     </View>
   );
 }
 ```
 
-## Operador ternário
+### 🔍 Explicação
+
+* você pode usar `if` antes do `return`
+* é útil quando a tela inteira muda de acordo com a condição
+
+## 💻 Exemplo (App) — operador ternário
 
 ```tsx
 import { View, Text } from 'react-native';
@@ -529,16 +566,19 @@ export default function App() {
   const isLogged = true;
 
   return (
-    <View>
-      <Text>
-        {isLogged ? 'Bem-vindo!' : 'Faça login'}
-      </Text>
+    <View style={{ padding: 20 }}>
+      <Text>{isLogged ? 'Bem-vindo!' : 'Faça login'}</Text>
     </View>
   );
 }
 ```
 
-## Renderização condicional com &&
+### 🔍 Explicação
+
+* ideal para alternar rapidamente entre dois conteúdos
+* muito usado em textos, botões e blocos pequenos
+
+## 💻 Exemplo (App) — renderização condicional com `&&`
 
 ```tsx
 import { View, Text } from 'react-native';
@@ -547,14 +587,19 @@ export default function App() {
   const isAdmin = true;
 
   return (
-    <View>
+    <View style={{ padding: 20 }}>
       {isAdmin && <Text>Área de admin</Text>}
     </View>
   );
 }
 ```
 
-## Condição com função
+### 🔍 Explicação
+
+* renderiza algo apenas se a condição for verdadeira
+* é ótimo quando não existe bloco alternativo
+
+## 💻 Exemplo (App) — condição com função
 
 ```tsx
 import { View, Text } from 'react-native';
@@ -568,11 +613,17 @@ export default function App() {
     return <Text>Visitante</Text>;
   }
 
-  return <View>{renderContent()}</View>;
+  return <View style={{ padding: 20 }}>{renderContent()}</View>;
 }
 ```
 
-## Loops map
+### 🔍 Explicação
+
+* ajuda a organizar lógica de renderização mais complexa
+* evita JSX muito poluído
+
+## 💻 Exemplo (App) — loops com `map`
+
 ```tsx
 import { View, Text } from 'react-native';
 
@@ -580,7 +631,7 @@ export default function App() {
   const users = ['Anderson', 'Maria', 'João'];
 
   return (
-    <View>
+    <View style={{ padding: 20 }}>
       {users.map((user, index) => (
         <Text key={index}>{user}</Text>
       ))}
@@ -589,20 +640,29 @@ export default function App() {
 }
 ```
 
+### 🔍 Explicação
 
-## Lista com objetos
+* `map` percorre os itens e renderiza um componente para cada um
+* cada item precisa de `key`
+
+## 💻 Exemplo (App) — lista com objetos
 
 ```tsx
 import { View, Text } from 'react-native';
 
+interface User {
+  id: number;
+  name: string;
+}
+
 export default function App() {
-  const users = [
+  const users: User[] = [
     { id: 1, name: 'Anderson' },
     { id: 2, name: 'Maria' },
   ];
 
   return (
-    <View>
+    <View style={{ padding: 20 }}>
       {users.map((user) => (
         <Text key={user.id}>{user.name}</Text>
       ))}
@@ -611,8 +671,12 @@ export default function App() {
 }
 ```
 
+### 🔍 Explicação
 
-## (condição + loop + estado)
+* usar `id` como `key` é melhor que usar índice
+* padrão muito comum ao renderizar dados vindos da API
+
+## 💻 Exemplo (App) — condição + loop + estado
 
 ```tsx
 import { useState } from 'react';
@@ -624,16 +688,11 @@ export default function App() {
   const users = ['Anderson', 'Maria', 'João'];
 
   return (
-    <View>
-      <Button
-        title="Toggle"
-        onPress={() => setShow(!show)}
-      />
+    <View style={{ padding: 20 }}>
+      <Button title="Toggle" onPress={() => setShow(!show)} />
 
       {show ? (
-        users.map((user, index) => (
-          <Text key={index}>{user}</Text>
-        ))
+        users.map((user, index) => <Text key={index}>{user}</Text>)
       ) : (
         <Text>Lista escondida</Text>
       )}
@@ -642,9 +701,18 @@ export default function App() {
 }
 ```
 
+### 🔍 Explicação
+
+* aqui você junta estado, condição e renderização de lista
+* é um padrão muito comum em interfaces reais
+
 ---
 
 # Fundamentos React Native
+
+## Objetivo
+
+Entender os componentes básicos da interface e como lidar com entrada de dados.
 
 ## 📚 Conteúdos
 
@@ -665,12 +733,25 @@ export default function App() {
   return (
     <View style={{ padding: 20 }}>
       <Text>Digite seu nome:</Text>
-      <TextInput value={name} onChangeText={setName} style={{ borderWidth: 1 }} />
+      <TextInput
+        value={name}
+        onChangeText={setName}
+        style={{ borderWidth: 1, padding: 10, marginVertical: 10 }}
+        placeholder="Seu nome"
+      />
       <Button title="Mostrar" onPress={() => alert(name)} />
     </View>
   );
 }
 ```
+
+### 🔍 Explicação
+
+* `View` é o container base da tela
+* `Text` renderiza texto
+* `TextInput` recebe entrada do usuário
+* `Button` dispara ações
+* `useState` controla o valor digitado
 
 ---
 
@@ -681,6 +762,10 @@ export default function App() {
 ```bash
 npx expo install react-native-safe-area-context
 ```
+
+## Objetivo
+
+Aprender a posicionar e estilizar componentes na tela.
 
 ## 📚 Conteúdos
 
@@ -695,26 +780,53 @@ import { View, Text, StyleSheet } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <View style={styles.box}><Text>1</Text></View>
-      <View style={styles.box}><Text>2</Text></View>
+      <View style={styles.box}>
+        <Text>1</Text>
+      </View>
+      <View style={styles.box}>
+        <Text>2</Text>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' },
-  box: { width: 80, height: 80, backgroundColor: 'lightblue', justifyContent: 'center', alignItems: 'center' }
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  box: {
+    width: 80,
+    height: 80,
+    backgroundColor: 'lightblue',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 ```
+
+### 🔍 Explicação
+
+* `flex: 1` faz o container ocupar a tela
+* `flexDirection: 'row'` coloca os itens lado a lado
+* `justifyContent` alinha no eixo principal
+* `alignItems` alinha no eixo cruzado
+* `StyleSheet.create` organiza e padroniza estilos
 
 ---
 
 # Estado + Eventos
 
+## Objetivo
+
+Entender como alterar dados e reagir a interações do usuário.
+
 ## 📚 Conteúdos
 
 * useState
-* Eventos (onPress)
+* eventos (`onPress`)
 
 ## 💻 Exemplo (App)
 
@@ -734,6 +846,13 @@ export default function App() {
 }
 ```
 
+### 🔍 Explicação
+
+* `count` guarda o valor atual
+* `setCount` atualiza o estado
+* ao atualizar o estado, a tela renderiza novamente
+* `onPress` executa a ação ao clicar no botão
+
 ---
 
 # Navegação
@@ -746,18 +865,32 @@ npm install @react-navigation/native-stack
 npx expo install react-native-screens react-native-safe-area-context
 ```
 
+## Objetivo
+
+Trocar entre telas do app de forma organizada e tipada.
+
 ## 💻 Exemplo (App)
 
 ```tsx
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {
+  createNativeStackNavigator,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 import { View, Text, Button } from 'react-native';
 
-const Stack = createNativeStackNavigator();
+type RootStackParamList = {
+  Home: undefined;
+  Details: undefined;
+};
 
-function Home({ navigation }: any) {
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
+
+function Home({ navigation }: HomeProps) {
   return (
-    <View>
+    <View style={{ padding: 20 }}>
       <Text>Home</Text>
       <Button title="Ir" onPress={() => navigation.navigate('Details')} />
     </View>
@@ -765,7 +898,11 @@ function Home({ navigation }: any) {
 }
 
 function Details() {
-  return <Text>Detalhes</Text>;
+  return (
+    <View style={{ padding: 20 }}>
+      <Text>Detalhes</Text>
+    </View>
+  );
 }
 
 export default function App() {
@@ -780,6 +917,13 @@ export default function App() {
 }
 ```
 
+### 🔍 Explicação
+
+* `NavigationContainer` é o container principal da navegação
+* `createNativeStackNavigator` cria navegação em pilha
+* `RootStackParamList` tipa as rotas
+* `NativeStackScreenProps` tipa a prop `navigation`
+
 ---
 
 # API + Listas
@@ -790,11 +934,15 @@ export default function App() {
 npm install axios
 ```
 
+## Objetivo
+
+Consumir dados externos e renderizar listas.
+
 ## 💻 Exemplo (App)
 
 ```tsx
 import { useEffect, useState } from 'react';
-import { FlatList, Text } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 
 interface User {
   id: number;
@@ -806,19 +954,28 @@ export default function App() {
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/users')
-      .then(res => res.json())
-      .then(setUsers);
+      .then((res) => res.json())
+      .then((data: User[]) => setUsers(data));
   }, []);
 
   return (
-    <FlatList
-      data={users}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item }) => <Text>{item.name}</Text>}
-    />
+    <View style={{ paddingTop: 40 }}>
+      <FlatList
+        data={users}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => <Text>{item.name}</Text>}
+      />
+    </View>
   );
 }
 ```
+
+### 🔍 Explicação
+
+* `useEffect` executa o código quando a tela carrega
+* `fetch` busca os dados da API
+* `User[]` tipa a lista recebida
+* `FlatList` renderiza listas grandes com melhor performance
 
 ---
 
@@ -830,12 +987,16 @@ export default function App() {
 npx expo install @react-native-async-storage/async-storage
 ```
 
+## Objetivo
+
+Salvar e recuperar dados localmente no dispositivo.
+
 ## 💻 Exemplo (App)
 
 ```tsx
 import { View, Button, Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function App() {
   const [token, setToken] = useState<string>('');
@@ -845,34 +1006,63 @@ export default function App() {
     setToken('123');
   };
 
+  const load = async () => {
+    const value = await AsyncStorage.getItem('token');
+    setToken(value ?? '');
+  };
+
+  useEffect(() => {
+    load();
+  }, []);
+
   return (
     <View style={{ padding: 20 }}>
-      <Text>Token: {token}</Text>
+      <Text>Token: {token || 'Nenhum token salvo'}</Text>
       <Button title="Salvar" onPress={save} />
     </View>
   );
 }
 ```
 
+### 🔍 Explicação
+
+* `setItem` salva o valor localmente
+* `getItem` recupera o valor salvo
+* `useEffect` carrega o valor ao abrir a tela
+* `?? ''` evita valores `null`
+
 ---
 
 # Context API
 
+## Objetivo
+
+Compartilhar estado global entre várias partes do app.
+
 ## 💻 Exemplo (App)
 
 ```tsx
-import { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { View, Text, Button } from 'react-native';
 
-const AuthContext = createContext<any>(null);
+interface AuthContextData {
+  user: string | null;
+  setUser: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+const AuthContext = createContext<AuthContextData | null>(null);
 
 function Home() {
-  const { user, setUser } = useContext(AuthContext);
+  const auth = useContext(AuthContext);
+
+  if (!auth) {
+    return <Text>Contexto não encontrado</Text>;
+  }
 
   return (
     <View>
-      <Text>{user}</Text>
-      <Button title="Login" onPress={() => setUser('Anderson')} />
+      <Text>{auth.user ?? 'Não logado'}</Text>
+      <Button title="Login" onPress={() => auth.setUser('Anderson')} />
     </View>
   );
 }
@@ -882,11 +1072,20 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      <Home />
+      <View style={{ padding: 20 }}>
+        <Home />
+      </View>
     </AuthContext.Provider>
   );
 }
 ```
+
+### 🔍 Explicação
+
+* `createContext` cria um contexto global
+* `Provider` disponibiliza o estado para componentes filhos
+* `useContext` consome esse estado
+* a interface `AuthContextData` evita uso de `any`
 
 ---
 
@@ -898,18 +1097,30 @@ export default function App() {
 npx expo install expo-camera
 ```
 
+## Objetivo
+
+Acessar recursos do dispositivo, como câmera e permissões.
+
 ## 💻 Exemplo (App)
 
 ```tsx
 import { CameraView, useCameraPermissions } from 'expo-camera';
-import { View, Button } from 'react-native';
+import { View, Button, Text } from 'react-native';
 
 export default function App() {
   const [permission, requestPermission] = useCameraPermissions();
 
-  if (!permission?.granted) {
+  if (!permission) {
     return (
-      <View>
+      <View style={{ padding: 20 }}>
+        <Text>Carregando permissões...</Text>
+      </View>
+    );
+  }
+
+  if (!permission.granted) {
+    return (
+      <View style={{ padding: 20 }}>
         <Button title="Permitir" onPress={requestPermission} />
       </View>
     );
@@ -919,6 +1130,54 @@ export default function App() {
 }
 ```
 
+### 🔍 Explicação
+
+* `useCameraPermissions()` consulta e solicita permissão
+* primeiro tratamos o estado inicial
+* depois validamos se o acesso foi concedido
+* `CameraView` exibe a câmera
+
 ---
+
+# Projeto Final Sugerido
+
+## Objetivo
+
+Criar um app integrando os principais tópicos estudados.
+
+## Funcionalidades
+
+* login simples
+* listagem de dados
+* navegação entre telas
+* consumo de API
+* persistência com AsyncStorage
+* estado global com Context API
+* uso de recurso nativo
+
+## Estrutura sugerida
+
+```text
+src/
+ ├── components/
+ ├── screens/
+ ├── services/
+ ├── context/
+ ├── hooks/
+ └── utils/
+```
+
+---
+
+# Conclusão
+
+Ao final deste roadmap, você terá base para:
+
+* entender TypeScript aplicado ao React Native
+* criar telas e componentes reutilizáveis
+* trabalhar com estado, eventos e renderização condicional
+* consumir APIs e listar dados
+* persistir informações no dispositivo
+* estruturar apps mais próximos de produção
 
 🔥 Ready!
