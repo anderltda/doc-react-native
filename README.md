@@ -1,118 +1,59 @@
-# 🚀 React Native — UI Profissional (Construção Visual)
+# 🚀 React Native — UI Profissional: Componentes Reutilizáveis
 
-Este material foi criado como uma **aula prática de React Native** com foco em **UI profissional**, mostrando como construir interfaces visuais mais modernas, limpas e com aparência de produto real.
+Guia prático com foco em **componentização**, **consistência visual** e **reuso** no React Native.
 
-Todos os exemplos foram pensados para serem executados em um único arquivo:
-
-- `App.tsx`
+A ideia desta aula é mostrar como construir uma UI profissional usando **componentes reutilizáveis**, sempre com exemplos que podem ser executados em **um único arquivo `App.tsx`**.
 
 ---
 
-# Criação do Projeto (Template TypeScript)
+# Objetivos da aula
 
-## Criar projeto
+Você vai aprender a criar e reutilizar:
 
-```bash
-npx create-expo-app app-react-native --template blank-typescript
-cd app-react-native
-npm install
-```
-
-## Executar projeto
-
-```bash
-npx expo start
-```
-
-## Executar no navegador
-
-Em muitos casos o Expo já resolve isso sozinho. Se o ambiente precisar, instale também:
-
-```bash
-npx expo install react-native-web react-dom
-```
-
-Depois execute:
-
-```bash
-npx expo start --web
-```
-
----
-
-# 📚 Objetivo da aula
-
-Nesta aula você vai aprender a construir interfaces com melhor percepção visual, trabalhando principalmente:
-
-- hierarquia visual
-- tipografia
-- espaçamento
-- cards
-- botões
+- botões padronizados
+- cards reutilizáveis
 - headers
-- listas visuais
-- dashboard
-- formulário moderno
-
-A proposta é que você copie cada exemplo individualmente para o mesmo `App.tsx`, execute e observe o resultado visual.
+- inputs
+- seções
+- listas com item reutilizável
+- telas mais organizadas e escaláveis
 
 ---
 
-# 🧠 O que é uma UI profissional?
+# Por que componentes reutilizáveis importam
 
-Uma UI profissional não depende apenas de “deixar bonito”.
+Quando a interface cresce, copiar e colar código começa a gerar problemas:
 
-Ela precisa transmitir:
+- inconsistência visual
+- manutenção difícil
+- duplicação desnecessária
+- mais chance de erro
+- evolução lenta da UI
 
-- clareza
+Com componentes reutilizáveis, você ganha:
+
+- padronização
+- produtividade
 - organização
-- consistência
-- contraste
-- facilidade de leitura
-- boa distribuição dos elementos na tela
-
-Na prática, uma interface profissional normalmente possui:
-
-- títulos fortes
-- subtítulos bem definidos
-- espaço em branco bem usado
-- botões com destaque
-- cards organizados
-- cores com função
-- alinhamento consistente
+- escalabilidade
+- aparência mais profissional
 
 ---
 
-# 🛠 Estrutura usada
-
-Os exemplos abaixo utilizam apenas recursos nativos do React Native:
-
-- `View`
-- `Text`
-- `SafeAreaView`
-- `ScrollView`
-- `TouchableOpacity`
-- `TextInput`
-- `StyleSheet`
-- `StatusBar`
-
-Sem bibliotecas externas, para facilitar o estudo e a execução.
-
----
-
-# Exemplo 1 — Estrutura visual profissional básica
+# Exemplo 1 — Botão reutilizável
 
 ## Objetivo
 
-Criar uma tela limpa com:
+Criar um botão padrão para ser usado em vários lugares da aplicação.
 
-- fundo suave
-- título forte
-- subtítulo
-- card principal
-- botão destacado
+## O que esse exemplo ensina
 
-## App.tsx
+- como criar um componente local dentro do `App.tsx`
+- como passar propriedades
+- como manter o visual consistente
+- como variar estilo sem duplicar código
+
+## `App.tsx`
 
 ```tsx
 import React from 'react';
@@ -125,340 +66,50 @@ import {
   View,
 } from 'react-native';
 
-export default function App() {
+type ButtonProps = {
+  title: string;
+  variant?: 'primary' | 'secondary';
+};
+
+function AppButton({ title, variant = 'primary' }: ButtonProps) {
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#F5F7FB" />
-
-      <View style={styles.content}>
-        <Text style={styles.badge}>UI Profissional</Text>
-
-        <Text style={styles.title}>Construção visual no React Native</Text>
-
-        <Text style={styles.subtitle}>
-          Aprenda a criar interfaces modernas, limpas e com aparência de produto real.
-        </Text>
-
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>Fundamentos Visuais</Text>
-          <Text style={styles.cardText}>
-            Uma interface profissional depende de hierarquia, espaçamento, contraste e consistência.
-          </Text>
-
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Começar aula</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </SafeAreaView>
+    <TouchableOpacity
+      style={[
+        styles.button,
+        variant === 'primary' ? styles.buttonPrimary : styles.buttonSecondary,
+      ]}
+    >
+      <Text
+        style={[
+          styles.buttonText,
+          variant === 'primary'
+            ? styles.buttonTextPrimary
+            : styles.buttonTextSecondary,
+        ]}
+      >
+        {title}
+      </Text>
+    </TouchableOpacity>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5F7FB',
-  },
-  content: {
-    flex: 1,
-    padding: 24,
-    justifyContent: 'center',
-  },
-  badge: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#E8EEFF',
-    color: '#315EFB',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 999,
-    fontSize: 12,
-    fontWeight: '700',
-    marginBottom: 16,
-  },
-  title: {
-    fontSize: 30,
-    fontWeight: '800',
-    color: '#111827',
-    lineHeight: 38,
-    marginBottom: 12,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#6B7280',
-    lineHeight: 24,
-    marginBottom: 28,
-  },
-  card: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 24,
-    padding: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.08,
-    shadowRadius: 16,
-    elevation: 4,
-  },
-  cardTitle: {
-    fontSize: 20,
-    fontWeight: '800',
-    color: '#111827',
-    marginBottom: 10,
-  },
-  cardText: {
-    fontSize: 15,
-    color: '#6B7280',
-    lineHeight: 22,
-    marginBottom: 20,
-  },
-  button: {
-    backgroundColor: '#111827',
-    paddingVertical: 14,
-    borderRadius: 14,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: 15,
-    fontWeight: '700',
-  },
-});
-```
-
----
-
-# Exemplo 2 — Hierarquia visual com header e ações
-
-## Objetivo
-
-Criar uma tela com:
-
-- header elegante
-- avatar fake
-- boas proporções
-- ações em destaque
-
-## App.tsx
-
-```tsx
-import React from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-
-export default function App() {
-  return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#111827" />
-
-      <View style={styles.header}>
-        <View>
-          <Text style={styles.greeting}>Olá, Anderson</Text>
-          <Text style={styles.headerTitle}>Seu painel visual</Text>
-        </View>
-
-        <View style={styles.avatar}>
-          <Text style={styles.avatarText}>AS</Text>
-        </View>
-      </View>
-
-      <View style={styles.body}>
-        <View style={styles.heroCard}>
-          <Text style={styles.heroLabel}>Destaque</Text>
-          <Text style={styles.heroTitle}>Construa interfaces com aparência premium</Text>
-          <Text style={styles.heroDescription}>
-            Use contraste, espaço em branco e organização para aumentar a percepção de qualidade.
-          </Text>
-
-          <View style={styles.actions}>
-            <TouchableOpacity style={styles.primaryButton}>
-              <Text style={styles.primaryButtonText}>Explorar</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.secondaryButton}>
-              <Text style={styles.secondaryButtonText}>Ver mais</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F3F4F6',
-  },
-  header: {
-    backgroundColor: '#111827',
-    paddingHorizontal: 24,
-    paddingVertical: 24,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  greeting: {
-    fontSize: 14,
-    color: '#9CA3AF',
-    marginBottom: 6,
-  },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: '800',
-    color: '#FFFFFF',
-  },
-  avatar: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
-    backgroundColor: '#374151',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  avatarText: {
-    color: '#FFFFFF',
-    fontWeight: '800',
-    fontSize: 16,
-  },
-  body: {
-    flex: 1,
-    padding: 24,
-  },
-  heroCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 24,
-    padding: 22,
-    marginTop: -20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.08,
-    shadowRadius: 18,
-    elevation: 5,
-  },
-  heroLabel: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#EEF2FF',
-    color: '#4338CA',
-    fontSize: 12,
-    fontWeight: '700',
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 999,
-    marginBottom: 16,
-  },
-  heroTitle: {
-    fontSize: 24,
-    fontWeight: '800',
-    color: '#111827',
-    lineHeight: 32,
-    marginBottom: 12,
-  },
-  heroDescription: {
-    fontSize: 15,
-    color: '#6B7280',
-    lineHeight: 24,
-    marginBottom: 24,
-  },
-  actions: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  primaryButton: {
-    flex: 1,
-    backgroundColor: '#111827',
-    borderRadius: 14,
-    paddingVertical: 14,
-    alignItems: 'center',
-  },
-  primaryButtonText: {
-    color: '#FFFFFF',
-    fontWeight: '700',
-    fontSize: 15,
-  },
-  secondaryButton: {
-    flex: 1,
-    backgroundColor: '#F3F4F6',
-    borderRadius: 14,
-    paddingVertical: 14,
-    alignItems: 'center',
-  },
-  secondaryButtonText: {
-    color: '#111827',
-    fontWeight: '700',
-    fontSize: 15,
-  },
-});
-```
-
----
-
-# Exemplo 3 — Cards com métricas estilo dashboard
-
-## Objetivo
-
-Montar um dashboard visual com:
-
-- métricas
-- cards bem distribuídos
-- organização em grade
-
-## App.tsx
-
-```tsx
-import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
 
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#F8FAFC" />
 
-      <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Dashboard UI</Text>
+      <View style={styles.content}>
+        <Text style={styles.title}>Botão reutilizável</Text>
         <Text style={styles.subtitle}>
-          Exemplo de construção visual profissional para métricas.
+          Um mesmo componente pode ser usado em vários contextos sem repetir layout.
         </Text>
 
-        <View style={styles.grid}>
-          <View style={styles.cardLarge}>
-            <Text style={styles.cardLabel}>Receita mensal</Text>
-            <Text style={styles.cardValue}>R$ 48.900</Text>
-            <Text style={styles.cardInfo}>+12% em relação ao mês anterior</Text>
-          </View>
-
-          <View style={styles.row}>
-            <View style={styles.cardSmall}>
-              <Text style={styles.cardLabel}>Clientes</Text>
-              <Text style={styles.smallValue}>1.284</Text>
-            </View>
-
-            <View style={styles.cardSmall}>
-              <Text style={styles.cardLabel}>Pedidos</Text>
-              <Text style={styles.smallValue}>329</Text>
-            </View>
-          </View>
-
-          <View style={styles.cardDark}>
-            <Text style={styles.darkLabel}>Performance geral</Text>
-            <Text style={styles.darkValue}>87%</Text>
-            <Text style={styles.darkInfo}>
-              Layouts bem estruturados aumentam legibilidade e percepção de qualidade.
-            </Text>
-          </View>
+        <View style={styles.group}>
+          <AppButton title="Salvar" />
+          <AppButton title="Cancelar" variant="secondary" />
+          <AppButton title="Continuar" />
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
@@ -469,7 +120,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#F8FAFC',
   },
   content: {
+    flex: 1,
     padding: 24,
+    justifyContent: 'center',
   },
   title: {
     fontSize: 28,
@@ -483,38 +136,142 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     marginBottom: 24,
   },
-  grid: {
-    gap: 16,
+  group: {
+    gap: 12,
   },
-  row: {
-    flexDirection: 'row',
-    gap: 16,
+  button: {
+    paddingVertical: 16,
+    borderRadius: 16,
+    alignItems: 'center',
   },
-  cardLarge: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 24,
-    padding: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.06,
-    shadowRadius: 14,
-    elevation: 4,
+  buttonPrimary: {
+    backgroundColor: '#0F172A',
   },
-  cardSmall: {
+  buttonSecondary: {
+    backgroundColor: '#E2E8F0',
+  },
+  buttonText: {
+    fontSize: 15,
+    fontWeight: '700',
+  },
+  buttonTextPrimary: {
+    color: '#FFFFFF',
+  },
+  buttonTextSecondary: {
+    color: '#0F172A',
+  },
+});
+```
+
+---
+
+# Exemplo 2 — Card reutilizável
+
+## Objetivo
+
+Criar um card genérico que recebe título, descrição e valor.
+
+## O que esse exemplo ensina
+
+- separar estrutura visual em componente
+- reaproveitar o mesmo layout para diferentes conteúdos
+- manter padrão visual de dashboard
+
+## `App.tsx`
+
+```tsx
+import React from 'react';
+import {
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+
+type InfoCardProps = {
+  label: string;
+  value: string;
+  description: string;
+};
+
+function InfoCard({ label, value, description }: InfoCardProps) {
+  return (
+    <View style={styles.card}>
+      <Text style={styles.cardLabel}>{label}</Text>
+      <Text style={styles.cardValue}>{value}</Text>
+      <Text style={styles.cardDescription}>{description}</Text>
+    </View>
+  );
+}
+
+export default function App() {
+  return (
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="#F1F5F9" />
+
+      <View style={styles.content}>
+        <Text style={styles.title}>Cards reutilizáveis</Text>
+        <Text style={styles.subtitle}>
+          O mesmo componente pode apresentar métricas diferentes sem perder consistência.
+        </Text>
+
+        <View style={styles.cards}>
+          <InfoCard
+            label="Vendas"
+            value="R$ 18.400"
+            description="Resultado acumulado desta semana"
+          />
+          <InfoCard
+            label="Clientes"
+            value="284"
+            description="Novos clientes no período"
+          />
+          <InfoCard
+            label="Conversão"
+            value="12,8%"
+            description="Taxa média da campanha atual"
+          />
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
     flex: 1,
+    backgroundColor: '#F1F5F9',
+  },
+  content: {
+    flex: 1,
+    padding: 24,
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: '800',
+    color: '#0F172A',
+    marginBottom: 8,
+  },
+  subtitle: {
+    fontSize: 15,
+    color: '#64748B',
+    lineHeight: 22,
+    marginBottom: 24,
+  },
+  cards: {
+    gap: 14,
+  },
+  card: {
     backgroundColor: '#FFFFFF',
     borderRadius: 20,
-    padding: 18,
+    padding: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.05,
     shadowRadius: 12,
     elevation: 3,
-  },
-  cardDark: {
-    backgroundColor: '#0F172A',
-    borderRadius: 24,
-    padding: 20,
   },
   cardLabel: {
     fontSize: 13,
@@ -523,36 +280,264 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   cardValue: {
-    fontSize: 34,
+    fontSize: 30,
     fontWeight: '800',
     color: '#0F172A',
     marginBottom: 8,
   },
-  cardInfo: {
+  cardDescription: {
     fontSize: 14,
-    color: '#16A34A',
-    fontWeight: '600',
+    color: '#475569',
+    lineHeight: 20,
   },
-  smallValue: {
-    fontSize: 24,
+});
+```
+
+---
+
+# Exemplo 3 — Input reutilizável
+
+## Objetivo
+
+Criar um campo de formulário reutilizável e consistente.
+
+## O que esse exemplo ensina
+
+- reduzir duplicação em formulários
+- padronizar labels e inputs
+- facilitar manutenção
+
+## `App.tsx`
+
+```tsx
+import React, { useState } from 'react';
+import {
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+
+type AppInputProps = {
+  label: string;
+  placeholder: string;
+  value: string;
+  onChangeText: (value: string) => void;
+};
+
+function AppInput({
+  label,
+  placeholder,
+  value,
+  onChangeText,
+}: AppInputProps) {
+  return (
+    <View style={styles.field}>
+      <Text style={styles.label}>{label}</Text>
+      <TextInput
+        style={styles.input}
+        placeholder={placeholder}
+        placeholderTextColor="#94A3B8"
+        value={value}
+        onChangeText={onChangeText}
+      />
+    </View>
+  );
+}
+
+export default function App() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="#F8FAFC" />
+
+      <View style={styles.content}>
+        <Text style={styles.title}>Inputs reutilizáveis</Text>
+        <Text style={styles.subtitle}>
+          Um único componente deixa o formulário limpo e padronizado.
+        </Text>
+
+        <AppInput
+          label="Nome"
+          placeholder="Digite seu nome"
+          value={name}
+          onChangeText={setName}
+        />
+
+        <AppInput
+          label="E-mail"
+          placeholder="Digite seu e-mail"
+          value={email}
+          onChangeText={setEmail}
+        />
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F8FAFC',
+  },
+  content: {
+    flex: 1,
+    padding: 24,
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 28,
     fontWeight: '800',
     color: '#0F172A',
+    marginBottom: 8,
   },
-  darkLabel: {
-    fontSize: 13,
-    color: '#94A3B8',
-    fontWeight: '600',
-    marginBottom: 10,
+  subtitle: {
+    fontSize: 15,
+    color: '#64748B',
+    lineHeight: 22,
+    marginBottom: 24,
   },
-  darkValue: {
-    fontSize: 36,
-    fontWeight: '800',
-    color: '#FFFFFF',
-    marginBottom: 10,
+  field: {
+    marginBottom: 18,
   },
-  darkInfo: {
+  label: {
     fontSize: 14,
+    fontWeight: '700',
+    color: '#334155',
+    marginBottom: 8,
+  },
+  input: {
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    borderRadius: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    fontSize: 15,
+    color: '#0F172A',
+  },
+});
+```
+
+---
+
+# Exemplo 4 — Header reutilizável
+
+## Objetivo
+
+Criar um cabeçalho padrão para várias telas.
+
+## O que esse exemplo ensina
+
+- centralizar identidade visual
+- reaproveitar blocos de topo
+- deixar o app mais consistente
+
+## `App.tsx`
+
+```tsx
+import React from 'react';
+import {
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+
+type PageHeaderProps = {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+};
+
+function PageHeader({ eyebrow, title, subtitle }: PageHeaderProps) {
+  return (
+    <View style={styles.header}>
+      <Text style={styles.eyebrow}>{eyebrow}</Text>
+      <Text style={styles.headerTitle}>{title}</Text>
+      <Text style={styles.headerSubtitle}>{subtitle}</Text>
+    </View>
+  );
+}
+
+export default function App() {
+  return (
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#0F172A" />
+
+      <PageHeader
+        eyebrow="UI Profissional"
+        title="Header reutilizável"
+        subtitle="Use a mesma estrutura visual em diferentes telas do produto."
+      />
+
+      <View style={styles.body}>
+        <View style={styles.card}>
+          <Text style={styles.cardText}>
+            Esse conteúdo fica abaixo de um header padronizado e elegante.
+          </Text>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#E2E8F0',
+  },
+  header: {
+    backgroundColor: '#0F172A',
+    paddingHorizontal: 24,
+    paddingTop: 20,
+    paddingBottom: 32,
+  },
+  eyebrow: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#1E293B',
     color: '#CBD5E1',
+    fontSize: 12,
+    fontWeight: '700',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 999,
+    marginBottom: 16,
+  },
+  headerTitle: {
+    color: '#FFFFFF',
+    fontSize: 28,
+    fontWeight: '800',
+    marginBottom: 8,
+  },
+  headerSubtitle: {
+    color: '#CBD5E1',
+    fontSize: 15,
+    lineHeight: 22,
+  },
+  body: {
+    flex: 1,
+    padding: 24,
+  },
+  card: {
+    marginTop: -18,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 22,
+    padding: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.06,
+    shadowRadius: 14,
+    elevation: 4,
+  },
+  cardText: {
+    fontSize: 15,
+    color: '#334155',
     lineHeight: 22,
   },
 });
@@ -560,18 +545,19 @@ const styles = StyleSheet.create({
 
 ---
 
-# Exemplo 4 — Lista profissional de opções
+# Exemplo 5 — Item de lista reutilizável
 
 ## Objetivo
 
-Criar uma lista visualmente elegante com:
+Criar um item de lista reutilizável para menus, configurações ou módulos.
 
-- ícone fake
-- título
-- descrição
-- seta de navegação
+## O que esse exemplo ensina
 
-## App.tsx
+- transformar um item visual em componente
+- facilitar criação de listas consistentes
+- melhorar organização da UI
+
+## `App.tsx`
 
 ```tsx
 import React from 'react';
@@ -584,61 +570,58 @@ import {
   View,
 } from 'react-native';
 
-const items = [
-  {
-    id: 1,
-    icon: '🎨',
-    title: 'Cores e contraste',
-    description: 'Aprenda a destacar elementos importantes.',
-  },
-  {
-    id: 2,
-    icon: '📐',
-    title: 'Espaçamento',
-    description: 'Crie respiro visual entre blocos e componentes.',
-  },
-  {
-    id: 3,
-    icon: '🧱',
-    title: 'Cards',
-    description: 'Organize conteúdo de forma moderna e elegante.',
-  },
-  {
-    id: 4,
-    icon: '🔠',
-    title: 'Tipografia',
-    description: 'Defina hierarquia clara com pesos e tamanhos.',
-  },
-];
+type MenuItemProps = {
+  icon: string;
+  title: string;
+  description: string;
+};
+
+function MenuItem({ icon, title, description }: MenuItemProps) {
+  return (
+    <TouchableOpacity style={styles.item}>
+      <View style={styles.left}>
+        <View style={styles.iconBox}>
+          <Text style={styles.icon}>{icon}</Text>
+        </View>
+
+        <View style={styles.textBox}>
+          <Text style={styles.itemTitle}>{title}</Text>
+          <Text style={styles.itemDescription}>{description}</Text>
+        </View>
+      </View>
+
+      <Text style={styles.arrow}>›</Text>
+    </TouchableOpacity>
+  );
+}
 
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#F9FAFB" />
+      <StatusBar barStyle="dark-content" backgroundColor="#F8FAFC" />
 
       <View style={styles.content}>
-        <Text style={styles.title}>Elementos da UI profissional</Text>
+        <Text style={styles.title}>Itens reutilizáveis</Text>
         <Text style={styles.subtitle}>
-          Cada item abaixo representa uma peça essencial de uma interface visual madura.
+          Ideal para menus, preferências, módulos e listas de navegação.
         </Text>
 
         <View style={styles.list}>
-          {items.map((item) => (
-            <TouchableOpacity key={item.id} style={styles.item}>
-              <View style={styles.left}>
-                <View style={styles.iconBox}>
-                  <Text style={styles.icon}>{item.icon}</Text>
-                </View>
-
-                <View style={styles.textBox}>
-                  <Text style={styles.itemTitle}>{item.title}</Text>
-                  <Text style={styles.itemDescription}>{item.description}</Text>
-                </View>
-              </View>
-
-              <Text style={styles.arrow}>›</Text>
-            </TouchableOpacity>
-          ))}
+          <MenuItem
+            icon="👤"
+            title="Perfil"
+            description="Gerencie seus dados pessoais"
+          />
+          <MenuItem
+            icon="🔔"
+            title="Notificações"
+            description="Controle alertas e avisos"
+          />
+          <MenuItem
+            icon="🔐"
+            title="Segurança"
+            description="Ajuste senha e permissões"
+          />
         </View>
       </View>
     </SafeAreaView>
@@ -648,21 +631,22 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: '#F8FAFC',
   },
   content: {
     flex: 1,
     padding: 24,
+    justifyContent: 'center',
   },
   title: {
     fontSize: 28,
     fontWeight: '800',
-    color: '#111827',
+    color: '#0F172A',
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 15,
-    color: '#6B7280',
+    color: '#64748B',
     lineHeight: 22,
     marginBottom: 24,
   },
@@ -691,7 +675,7 @@ const styles = StyleSheet.create({
     width: 52,
     height: 52,
     borderRadius: 16,
-    backgroundColor: '#EEF2FF',
+    backgroundColor: '#E2E8F0',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 14,
@@ -705,17 +689,17 @@ const styles = StyleSheet.create({
   itemTitle: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#111827',
+    color: '#0F172A',
     marginBottom: 4,
   },
   itemDescription: {
     fontSize: 14,
-    color: '#6B7280',
+    color: '#64748B',
     lineHeight: 20,
   },
   arrow: {
     fontSize: 28,
-    color: '#9CA3AF',
+    color: '#94A3B8',
     marginLeft: 12,
   },
 });
@@ -723,182 +707,19 @@ const styles = StyleSheet.create({
 
 ---
 
-# Exemplo 5 — Formulário com aparência moderna
+# Exemplo 6 — Seção reutilizável com composição
 
 ## Objetivo
 
-Criar um layout de formulário profissional com:
+Criar uma tela mais próxima de app real usando vários componentes pequenos.
 
-- header visual
-- campos estilizados
-- CTA principal
-- boa separação visual
+## O que esse exemplo ensina
 
-## App.tsx
+- composição de componentes
+- organização da UI em blocos menores
+- tela escalável e profissional
 
-```tsx
-import React, { useState } from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-
-export default function App() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#1E293B" />
-
-      <View style={styles.top}>
-        <Text style={styles.topLabel}>Cadastro</Text>
-        <Text style={styles.topTitle}>Monte formulários com UI profissional</Text>
-      </View>
-
-      <View style={styles.formCard}>
-        <Text style={styles.formTitle}>Criar conta</Text>
-        <Text style={styles.formSubtitle}>
-          Interfaces limpas transmitem mais confiança ao usuário.
-        </Text>
-
-        <View style={styles.field}>
-          <Text style={styles.label}>Nome</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Digite seu nome"
-            value={name}
-            onChangeText={setName}
-            placeholderTextColor="#9CA3AF"
-          />
-        </View>
-
-        <View style={styles.field}>
-          <Text style={styles.label}>E-mail</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Digite seu e-mail"
-            value={email}
-            onChangeText={setEmail}
-            placeholderTextColor="#9CA3AF"
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
-        </View>
-
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Cadastrar</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#E2E8F0',
-  },
-  top: {
-    backgroundColor: '#1E293B',
-    paddingHorizontal: 24,
-    paddingTop: 30,
-    paddingBottom: 60,
-  },
-  topLabel: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#334155',
-    color: '#E2E8F0',
-    fontSize: 12,
-    fontWeight: '700',
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 999,
-    marginBottom: 16,
-  },
-  topTitle: {
-    fontSize: 28,
-    fontWeight: '800',
-    color: '#FFFFFF',
-    lineHeight: 36,
-  },
-  formCard: {
-    marginHorizontal: 20,
-    marginTop: -30,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 24,
-    padding: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.08,
-    shadowRadius: 16,
-    elevation: 4,
-  },
-  formTitle: {
-    fontSize: 22,
-    fontWeight: '800',
-    color: '#111827',
-    marginBottom: 8,
-  },
-  formSubtitle: {
-    fontSize: 14,
-    color: '#6B7280',
-    lineHeight: 22,
-    marginBottom: 24,
-  },
-  field: {
-    marginBottom: 18,
-  },
-  label: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: '#374151',
-    marginBottom: 8,
-  },
-  input: {
-    backgroundColor: '#F9FAFB',
-    borderWidth: 1,
-    borderColor: '#E5E7EB',
-    borderRadius: 14,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    fontSize: 15,
-    color: '#111827',
-  },
-  button: {
-    marginTop: 10,
-    backgroundColor: '#111827',
-    borderRadius: 14,
-    paddingVertical: 16,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: 15,
-    fontWeight: '700',
-  },
-});
-```
-
----
-
-# Exemplo 6 — Tela estilo app real com seções
-
-## Objetivo
-
-Construir uma tela mais próxima de produto real com:
-
-- cabeçalho
-- seção de destaque
-- atalhos
-- lista recente
-
-## App.tsx
+## `App.tsx`
 
 ```tsx
 import React from 'react';
@@ -911,13 +732,41 @@ import {
   View,
 } from 'react-native';
 
-const shortcuts = ['Design', 'Layout', 'Tipografia', 'Cards'];
-const recentItems = [
-  'Criando headers elegantes',
-  'Espaçamento e respiro visual',
-  'Botões com peso visual',
-  'Formulários modernos',
-];
+type SectionProps = {
+  title: string;
+  children: React.ReactNode;
+};
+
+type StatCardProps = {
+  label: string;
+  value: string;
+};
+
+function Section({ title, children }: SectionProps) {
+  return (
+    <View style={styles.section}>
+      <Text style={styles.sectionTitle}>{title}</Text>
+      {children}
+    </View>
+  );
+}
+
+function StatCard({ label, value }: StatCardProps) {
+  return (
+    <View style={styles.card}>
+      <Text style={styles.cardLabel}>{label}</Text>
+      <Text style={styles.cardValue}>{value}</Text>
+    </View>
+  );
+}
+
+function Tag({ text }: { text: string }) {
+  return (
+    <View style={styles.tag}>
+      <Text style={styles.tagText}>{text}</Text>
+    </View>
+  );
+}
 
 export default function App() {
   return (
@@ -925,43 +774,35 @@ export default function App() {
       <StatusBar barStyle="dark-content" backgroundColor="#F8FAFC" />
 
       <ScrollView contentContainerStyle={styles.content}>
-        <View style={styles.header}>
-          <View>
-            <Text style={styles.smallText}>Bem-vindo</Text>
-            <Text style={styles.title}>UI Profissional</Text>
+        <Text style={styles.title}>Composição de componentes</Text>
+        <Text style={styles.subtitle}>
+          A UI profissional nasce da soma de pequenos componentes reutilizáveis.
+        </Text>
+
+        <Section title="Indicadores">
+          <View style={styles.row}>
+            <StatCard label="Pedidos" value="128" />
+            <StatCard label="Clientes" value="54" />
           </View>
+        </Section>
 
-          <View style={styles.profile}>
-            <Text style={styles.profileText}>UI</Text>
+        <Section title="Categorias">
+          <View style={styles.tagRow}>
+            <Tag text="Design" />
+            <Tag text="Componentes" />
+            <Tag text="Formulários" />
+            <Tag text="Dashboard" />
           </View>
-        </View>
+        </Section>
 
-        <View style={styles.banner}>
-          <Text style={styles.bannerLabel}>Aula em destaque</Text>
-          <Text style={styles.bannerTitle}>Construção visual moderna no React Native</Text>
-          <Text style={styles.bannerDescription}>
-            Aprenda a combinar estrutura, contraste e organização para criar telas com aparência premium.
-          </Text>
-        </View>
-
-        <Text style={styles.sectionTitle}>Atalhos</Text>
-        <View style={styles.shortcutRow}>
-          {shortcuts.map((item) => (
-            <View key={item} style={styles.shortcutCard}>
-              <Text style={styles.shortcutText}>{item}</Text>
-            </View>
-          ))}
-        </View>
-
-        <Text style={styles.sectionTitle}>Conteúdo recente</Text>
-        <View style={styles.list}>
-          {recentItems.map((item) => (
-            <View key={item} style={styles.listItem}>
-              <View style={styles.dot} />
-              <Text style={styles.listText}>{item}</Text>
-            </View>
-          ))}
-        </View>
+        <Section title="Resumo">
+          <View style={styles.summaryCard}>
+            <Text style={styles.summaryText}>
+              Em vez de montar toda a tela diretamente no JSX principal, quebre em
+              blocos pequenos. Isso melhora leitura, manutenção e reuso.
+            </Text>
+          </View>
+        </Section>
       </ScrollView>
     </SafeAreaView>
   );
@@ -975,63 +816,20 @@ const styles = StyleSheet.create({
   content: {
     padding: 24,
   },
-  header: {
-    marginBottom: 24,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  smallText: {
-    color: '#64748B',
-    fontSize: 13,
-    marginBottom: 4,
-  },
   title: {
     fontSize: 28,
     fontWeight: '800',
     color: '#0F172A',
+    marginBottom: 8,
   },
-  profile: {
-    width: 52,
-    height: 52,
-    borderRadius: 18,
-    backgroundColor: '#0F172A',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  profileText: {
-    color: '#FFFFFF',
-    fontWeight: '800',
-    fontSize: 16,
-  },
-  banner: {
-    backgroundColor: '#0F172A',
-    borderRadius: 24,
-    padding: 22,
+  subtitle: {
+    fontSize: 15,
+    color: '#64748B',
+    lineHeight: 22,
     marginBottom: 24,
   },
-  bannerLabel: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#1E293B',
-    color: '#CBD5E1',
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 999,
-    fontSize: 12,
-    fontWeight: '700',
-    marginBottom: 14,
-  },
-  bannerTitle: {
-    color: '#FFFFFF',
-    fontSize: 22,
-    fontWeight: '800',
-    lineHeight: 30,
-    marginBottom: 10,
-  },
-  bannerDescription: {
-    color: '#CBD5E1',
-    fontSize: 14,
-    lineHeight: 22,
+  section: {
+    marginBottom: 24,
   },
   sectionTitle: {
     fontSize: 18,
@@ -1039,220 +837,227 @@ const styles = StyleSheet.create({
     color: '#0F172A',
     marginBottom: 14,
   },
-  shortcutRow: {
+  row: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
     gap: 12,
-    marginBottom: 24,
   },
-  shortcutCard: {
+  card: {
+    flex: 1,
     backgroundColor: '#FFFFFF',
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    borderRadius: 16,
+    borderRadius: 20,
+    padding: 18,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.04,
+    shadowOpacity: 0.05,
     shadowRadius: 10,
     elevation: 2,
   },
-  shortcutText: {
-    fontSize: 14,
+  cardLabel: {
+    fontSize: 13,
+    color: '#64748B',
+    fontWeight: '600',
+    marginBottom: 8,
+  },
+  cardValue: {
+    fontSize: 26,
+    fontWeight: '800',
+    color: '#0F172A',
+  },
+  tagRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
+  },
+  tag: {
+    backgroundColor: '#E2E8F0',
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: 999,
+  },
+  tagText: {
+    fontSize: 13,
     fontWeight: '700',
     color: '#334155',
   },
-  list: {
-    gap: 12,
-  },
-  listItem: {
+  summaryCard: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 18,
-    padding: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
+    borderRadius: 20,
+    padding: 18,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    elevation: 2,
   },
-  dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: '#2563EB',
-    marginRight: 12,
-  },
-  listText: {
+  summaryText: {
     fontSize: 15,
     color: '#334155',
-    fontWeight: '600',
+    lineHeight: 22,
   },
 });
 ```
 
 ---
 
-# 🎯 Fundamentos que deixam a UI mais profissional
+# Boas práticas para componentes reutilizáveis
 
-## 1. Hierarquia visual
+## 1. Dê nomes claros
 
-Use tamanhos e pesos diferentes para mostrar importância.
+Prefira nomes como:
 
-Exemplo de leitura visual:
+- `AppButton`
+- `PageHeader`
+- `InfoCard`
+- `MenuItem`
+- `AppInput`
 
-- título principal: `28` a `32`
-- subtítulo: `14` a `16`
-- texto secundário: `12` a `14`
+Evite nomes genéricos demais como:
 
-Quanto mais importante a informação, mais destaque ela precisa receber.
-
----
-
-## 2. Espaçamento consistente
-
-Espaçamento é um dos elementos que mais impactam a aparência profissional.
-
-Use uma lógica previsível, como:
-
-- `8`
-- `12`
-- `16`
-- `20`
-- `24`
-
-Evite valores aleatórios em cada componente.
+- `Component1`
+- `Box`
+- `Test`
+- `Elemento`
 
 ---
 
-## 3. Tipografia bem definida
+## 2. Passe apenas props necessárias
 
-A tipografia ajuda a organizar a leitura.
+Um componente reutilizável deve ser simples de usar.
 
-Boas práticas:
+Exemplo bom:
 
-- títulos com `fontWeight: '800'`
-- subtítulos com cores secundárias
-- textos longos com `lineHeight`
-- evitar excesso de tamanhos diferentes
+```tsx
+<AppButton title="Salvar" variant="primary" />
+```
 
----
-
-## 4. Cores com função
-
-As cores precisam ter papéis claros:
-
-- fundo geral
-- superfície/card
-- texto principal
-- texto secundário
-- ação principal
-- estado de sucesso/alerta
-
-Uma UI profissional não usa cor apenas por estética, mas por função.
+Evite componentes que exijam props demais sem necessidade.
 
 ---
 
-## 5. Bordas arredondadas
+## 3. Centralize estilos visuais
 
-Interfaces modernas costumam usar bastante arredondamento visual.
-
-Valores comuns:
-
-- `12`
-- `14`
-- `16`
-- `20`
-- `24`
-
-Isso ajuda a deixar a interface mais moderna e agradável.
+Se todo botão principal do app tiver a mesma identidade, mantenha isso no componente e não espalhado na tela.
 
 ---
 
-## 6. Profundidade visual
+## 4. Use composição
 
-Cards e blocos podem ganhar destaque usando:
+Às vezes é melhor compor a interface com pequenos componentes do que criar um único componente gigante.
 
-- `shadowColor`
-- `shadowOffset`
-- `shadowOpacity`
-- `shadowRadius`
-- `elevation`
+Exemplo:
 
-Use com moderação. Muito excesso deixa a tela poluída.
+- `PageHeader`
+- `Section`
+- `StatCard`
+- `Tag`
+- `MenuItem`
 
----
-
-## 7. Contraste
-
-O usuário precisa identificar rapidamente:
-
-- o que é título
-- o que é conteúdo
-- o que é ação
-- o que é secundário
-
-Por isso, contraste é essencial entre:
-
-- fundo e card
-- botão e texto
-- título e descrição
+Juntos, eles formam uma tela maior.
 
 ---
 
-# ✅ Checklist de UI profissional
+## 5. Mantenha consistência
 
-Antes de considerar uma tela pronta, revise:
+Defina padrões para:
 
-- o título principal está claro?
-- existe respiro entre os blocos?
-- os elementos estão alinhados?
-- o botão principal chama atenção?
-- os cards possuem boa separação visual?
-- o texto está fácil de ler?
-- a tela parece consistente do começo ao fim?
-
----
-
-# 📈 Ordem sugerida de estudo
-
-Você pode estudar os exemplos nesta sequência:
-
-1. Estrutura visual básica
-2. Header com hierarquia
-3. Cards e blocos visuais
-4. Dashboard
-5. Lista de opções
-6. Formulário moderno
-7. Tela completa estilo app real
+- bordas
+- espaçamento
+- tamanhos de fonte
+- pesos de texto
+- cores
+- altura de botões e inputs
 
 ---
 
-# 💡 Próximos passos
+## 6. Pense em escalabilidade
 
-Depois desta aula, você pode evoluir para temas como:
+Hoje você pode ter uma tela pequena. Amanhã pode ter 20 telas.
 
-- Design System em React Native
-- tokens visuais (`colors`, `spacing`, `radius`, `fontSize`)
-- componentização de botões, cards e inputs
-- dark mode
-- responsividade
-- animações com `Animated` ou `react-native-reanimated`
-- UI com Expo + NativeWind
-- telas enterprise com dashboard, filtros e tabelas mobile
+Se os componentes já estiverem bem definidos, a evolução fica muito mais simples.
+
+---
+
+# Estrutura mental recomendada
+
+Quando for criar uma UI, pense assim:
+
+## Primeiro nível — componentes base
+
+- botão
+- input
+- card
+- badge
+- tag
+- divider
+
+## Segundo nível — componentes compostos
+
+- header
+- item de lista
+- card de estatística
+- card de produto
+- bloco de formulário
+
+## Terceiro nível — telas
+
+- dashboard
+- perfil
+- configurações
+- cadastro
+- detalhes
+
+---
+
+# Benefícios práticos no projeto real
+
+Em projetos enterprise, componentes reutilizáveis ajudam a:
+
+- acelerar desenvolvimento
+- reduzir bugs visuais
+- facilitar manutenção
+- padronizar a identidade do produto
+- melhorar onboarding de novos devs
+- simplificar refatorações
+
+---
+
+# Exercícios sugeridos
+
+## Exercício 1
+Crie um `AppButton` com 3 variantes:
+
+- primary
+- secondary
+- danger
+
+## Exercício 2
+Crie um `ProfileCard` reutilizável com:
+
+- nome
+- cargo
+- e-mail
+
+## Exercício 3
+Crie um `Section` que receba:
+
+- título
+- subtítulo
+- children
+
+## Exercício 4
+Monte uma tela completa usando apenas componentes reutilizáveis.
 
 ---
 
 # Conclusão
 
-Construir uma UI profissional em React Native é uma combinação de:
+UI profissional não é só aparência.
 
-- organização visual
+É também:
+
+- organização
 - consistência
-- contraste
-- tipografia
-- espaçamento
-- componentes reutilizáveis
+- escalabilidade
+- clareza de código
 
-Mais do que “deixar bonito”, o foco é criar telas que transmitam qualidade e confiança.
-
----
-
-# Autor
-
-Material gerado para estudo sobre **React Native — UI profissional (construção visual)**.
+Quando você cria componentes reutilizáveis, sua aplicação fica mais madura tanto visualmente quanto tecnicamente.
