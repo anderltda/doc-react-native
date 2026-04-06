@@ -1,5 +1,4 @@
 # 🚀 React Native + Expo + TypeScript Roadmap
-
 Guia do **básico ao avançado**, com foco em prática, fundamentos sólidos e construção de um app real.
 
 
@@ -1151,12 +1150,11 @@ Criar um app integrando os principais tópicos estudados.
 * login simples
 * listagem de dados
 * navegação entre telas
-* consumo de API
-* persistência com AsyncStorage
+* consumo de API* persistência com AsyncStorage
 * estado global com Context API
 * uso de recurso nativo
 
-## Estrutura sugerida
+## Estrutura sugeridaMarkdown Preview Enhanced
 
 ```text
 src/
