@@ -1221,38 +1221,3 @@ Você pode estudar os exemplos nesta sequência:
 6. Formulário moderno
 7. Tela completa estilo app real
 
----
-
-# 💡 Próximos passos
-
-Depois desta aula, você pode evoluir para temas como:
-
-- Design System em React Native
-- tokens visuais (`colors`, `spacing`, `radius`, `fontSize`)
-- componentização de botões, cards e inputs
-- dark mode
-- responsividade
-- animações com `Animated` ou `react-native-reanimated`
-- UI com Expo + NativeWind
-- telas enterprise com dashboard, filtros e tabelas mobile
-
----
-
-# Conclusão
-
-Construir uma UI profissional em React Native é uma combinação de:
-
-- organização visual
-- consistência
-- contraste
-- tipografia
-- espaçamento
-- componentes reutilizáveis
-
-Mais do que “deixar bonito”, o foco é criar telas que transmitam qualidade e confiança.
-
----
-
-# Autor
-
-Material gerado para estudo sobre **React Native — UI profissional (construção visual)**.
