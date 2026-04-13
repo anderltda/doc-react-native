@@ -36,14 +36,6 @@ Todos os exemplos utilizam **um único arquivo `App.tsx`**, permitindo fácil ex
 
 ---
 
-# 🛠️ Pré-requisitos
-
-- Node.js
-- npm ou yarn
-- Expo CLI
-
----
-
 # ▶️ Criando o projeto
 
 ```bash
