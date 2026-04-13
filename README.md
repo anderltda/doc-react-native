@@ -9,10 +9,24 @@ Guia do **básico ao avançado**, com foco em prática, fundamentos sólidos e c
 ## Criar projeto
 
 ```bash
-npx create-expo-app app-react-native --template blank-typescript
+npx create-expo-app app-react-native --template Navigation (typescript)
 cd app-react-native
 npm install
 ```
+
+apagar as pastas: app, components, constants, fonts
+criar pasta: src/app/index.tsx
+
+alterar tsconfig.json e adicionar src dentro dos paths
+"paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+alterar esm app.json 
+web: static -> server
+instalar o Axios ( ```bash npm i axios ```)
+criar função para chamada das rotas e estilização do APP
 
 ## Executar projeto
 
