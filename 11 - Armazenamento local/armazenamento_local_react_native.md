@@ -1,6 +1,67 @@
-# 🚀 Aula: Armazenamento Local no React Native (com exemplos executáveis)
+# 🚀 Armazenamento Local no React Native
 
-Guia completo com exemplos **prontos para rodar no App.tsx** usando AsyncStorage.
+Guia completo com conceitos e exemplos práticos utilizando **AsyncStorage**, incluindo persistência de dados, sessão e preferências.
+
+---
+
+# 📚 Conteúdo
+
+- O que é armazenamento local
+- Quando usar
+- AsyncStorage
+- Trabalhando com JSON
+- Persistência de sessão
+- Boas práticas
+- Exemplos práticos
+- Exercícios
+
+# 🧠 O que é armazenamento local
+
+Armazenamento local permite salvar dados diretamente no dispositivo do usuário para reutilização futura, mesmo após fechar o app.
+
+### Exemplos:
+- Usuário logado
+- Tema (dark/light)
+- Preferências
+- Lista de tarefas
+- Cache simples
+
+---
+
+# 📌 Quando usar
+
+Use quando o dado:
+
+- Precisa persistir após fechar o app
+- É pequeno e simples
+- Não depende de backend imediato
+
+---
+
+# ⚠️ Quando evitar
+
+Evite usar sozinho para:
+
+- Dados críticos
+- Dados sensíveis sem proteção
+- Grandes volumes de dados
+
+---
+
+# ⚙️ Conceitos importantes
+
+## Tudo é string
+
+```ts
+JSON.stringify(objeto)
+JSON.parse(valor)
+```
+
+## Uso assíncrono
+
+```ts
+await AsyncStorage.setItem(key, value)
+```
 
 ---
 
@@ -721,6 +782,180 @@ const styles = StyleSheet.create({
 
 ---
 
+# 💻 Exemplo 6 — Salvar Imagem "Avatar" com Câmera e Persistência
+
+## Instalar dependências
+
+``` bash
+npx expo install expo-image-picker
+```
+---
+
+```tsx
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, View, Text, Image, Button, StyleSheet, Alert } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const AVATAR_KEY = '@avatar';
+
+export default function App() {
+  const [avatar, setAvatar] = useState<string | null>(null);
+
+  useEffect(() => {
+    loadAvatar();
+  }, []);
+
+  const loadAvatar = async () => {
+    try {
+      const saved = await AsyncStorage.getItem(AVATAR_KEY);
+      if (saved) {
+        setAvatar(saved);
+      }
+    } catch (error) {
+      console.log('Erro ao carregar avatar:', error);
+    }
+  };
+
+  const pickImage = async () => {
+    try {
+      // pedir permissão
+      const permission =
+        await ImagePicker.requestCameraPermissionsAsync();
+
+      if (!permission.granted) {
+        Alert.alert('Permissão necessária', 'Autorize o uso da câmera');
+        return;
+      }
+
+      // abrir câmera
+      const result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 0.7,
+        allowsEditing: true,
+        aspect: [1, 1],
+      });
+
+      if (!result.canceled) {
+        const uri = result.assets[0].uri;
+
+        setAvatar(uri);
+        await AsyncStorage.setItem(AVATAR_KEY, uri);
+
+        console.log('Avatar salvo:', uri);
+      }
+    } catch (error) {
+      console.log('Erro ao tirar foto:', error);
+    }
+  };
+
+  const removeAvatar = async () => {
+    try {
+      await AsyncStorage.removeItem(AVATAR_KEY);
+      setAvatar(null);
+    } catch (error) {
+      console.log('Erro ao remover avatar:', error);
+    }
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Avatar do Usuário</Text>
+
+      <View style={styles.avatarContainer}>
+        {avatar ? (
+          <Image source={{ uri: avatar }} style={styles.avatar} />
+        ) : (
+          <View style={styles.placeholder}>
+            <Text style={styles.placeholderText}>Sem foto</Text>
+          </View>
+        )}
+      </View>
+
+      <View style={styles.buttons}>
+        <Button title="Tirar Foto" onPress={pickImage} />
+
+        {avatar && (
+          <Button title="Remover Avatar" onPress={removeAvatar} />
+        )}
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: '700',
+    marginBottom: 20,
+  },
+  avatarContainer: {
+    marginBottom: 20,
+  },
+  avatar: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+  },
+  placeholder: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    backgroundColor: '#ddd',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  placeholderText: {
+    color: '#555',
+  },
+  buttons: {
+    gap: 10,
+  },
+});
+```
+
+---
+
+# 🧠 Boas práticas
+
+- Centralizar chaves
+- Criar service de storage
+- Usar try/catch
+- Não salvar dados sensíveis
+- Evitar grandes volumes
+
+---
+
+# ❌ Erros comuns
+
+- Não usar JSON.stringify
+- Não tratar null
+- Mutar estado diretamente
+
+---
+
+# 🧪 Exercícios
+
+## 1
+Salvar nome e carregar ao abrir app
+
+## 2
+Lista de tarefas persistida
+
+## 3
+Login com sessão salva
+
+## 4
+Configurações persistidas
+
+---
+
 # 🧠 Resumo
 
 - AsyncStorage persiste dados
@@ -733,4 +968,7 @@ const styles = StyleSheet.create({
 # 📚 Fontes
 
 https://reactnative.dev/docs/asyncstorage
+https://react-native-async-storage.github.io/async-storage/docs/usage/
+https://reactnative.dev/docs/image
 https://docs.expo.dev/versions/latest/sdk/async-storage/
+https://docs.expo.dev/versions/latest/sdk/imagepicker/
