@@ -36,17 +36,6 @@ Todos os exemplos utilizam **um único arquivo `App.tsx`**, permitindo fácil ex
 
 ---
 
-# ▶️ Criando o projeto
-
-```bash
-npx create-expo-app app-fundamentos-rn --template blank-typescript
-cd app-fundamentos-rn
-npm install
-npx expo start
-```
-
----
-
 # 🧠 Diferença entre React e React Native - Visão Geral
 
 | Tecnologia | Plataforma | Renderização |
