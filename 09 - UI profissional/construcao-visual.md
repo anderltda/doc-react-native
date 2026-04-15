@@ -6,8 +6,6 @@ Todos os exemplos foram pensados para serem executados em um único arquivo:
 
 - `App.tsx`
 
-```
-
 ---
 
 # 📚 Objetivo da aula
