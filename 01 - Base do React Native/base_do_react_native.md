@@ -26,19 +26,6 @@ Todos os exemplos foram pensados para serem executados em um projeto **React Nat
 
 ---
 
-# ▶️ Criação do Projeto
-
-```bash
-npx create-expo-app app-fundamentos-react-native --template blank-typescript
-cd app-fundamentos-react-native
-npm install
-npx expo start
-```
-
-Depois disso, substitua o conteúdo do arquivo `App.tsx` pelo exemplo desejado.
-
----
-
 # 1) Tipagem avançada — Generics, Utility Types, Mapped Types
 
 ## ✅ Objetivo
