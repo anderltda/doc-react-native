@@ -110,3 +110,9 @@ export default function App() {
   );
 }
 ```
+---
+
+# 📚 Fontes
+
+- https://reactnative.dev/docs/components-and-apis
+- https://docs.expo.dev/skills/
