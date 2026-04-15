@@ -942,17 +942,13 @@ const styles = StyleSheet.create({
 
 # 🧪 Exercícios
 
-## 1
-Salvar nome e carregar ao abrir app
+## 1 - Salvar nome e carregar ao abrir app
 
-## 2
-Lista de tarefas persistida
+## 2 - Lista de tarefas persistida
 
-## 3
-Login com sessão salva
+## 3 - Login com sessão salva
 
-## 4
-Configurações persistidas
+## 4 - Configurações persistidas
 
 ---
 
