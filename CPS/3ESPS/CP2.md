@@ -543,6 +543,9 @@ Um app:
 # 📚 Referências
 
 https://reactnative.dev/docs/components-and-apis
+
 https://docs.expo.dev/skills/
+
 https://reactnavigation.org/
+
 https://www.typescriptlang.org/docs/
