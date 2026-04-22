@@ -487,7 +487,7 @@ export interface Task {
 
 ## Vídeo
 
--   3 a 7 minutos
+-   3 a 7 minutos 
 
 ## Deve mostrar:
 
@@ -495,6 +495,15 @@ export interface Task {
 -   CRUD
 -   persistência
 -   API
+
+## Data de entrega: 
+- 29/04/2026
+
+## Regras para entrega
+-  enviar o código completo e o video via teams
+-  grupo no maximo 5 pessoas
+-  adiciona nome dos integrantes ao envia via teams
+
 
 ------------------------------------------------------------------------
 
@@ -539,6 +548,7 @@ Um app:
 -   com consumo de API
 
 ------------------------------------------------------------------------
+
 
 # 📚 Referências
 
