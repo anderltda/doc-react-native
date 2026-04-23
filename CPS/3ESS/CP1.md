@@ -502,7 +502,7 @@ export interface Task {
 ## Regras para entrega
 -  enviar o código completo e o video via teams
 -  grupo no maximo 5 pessoas
--  adiciona nome dos integrantes ao envia via teams
+-  adiciona nome e rm dos integrantes ao envia via teams
 
 
 ------------------------------------------------------------------------
