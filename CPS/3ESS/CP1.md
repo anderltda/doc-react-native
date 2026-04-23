@@ -497,7 +497,7 @@ export interface Task {
 -   API
 
 ## Data de entrega: 
-- 29/04/2026
+- 30/04/2026
 
 ## Regras para entrega
 -  enviar o código completo e o video via teams
