@@ -33,14 +33,6 @@ No seu celular:
 
 ---
 
-## 3. Limpar cache e estado do projeto
-
-```bash
-rm -rf .expo .expo-shared
-```
-
----
-
 # ▶️ Executando o projeto no celular
 
 ```bash
@@ -64,21 +56,17 @@ npx expo start --clear --lan
 npx create-expo-app app-react-native --template blank-typescript
 cd app-react-native
 npm install
-rm -rf .expo .expo-shared
 npx expo start --clear --lan
 ```
 
 ---
 
-# ⚠️ Problemas comuns
+# ⚠️ Executar no navegador
 
-## ❌ Erro: Could not connect to the server
-
-Solução:
+## Em muitos casos o Expo já resolve isso sozinho. Se o ambiente precisar, instale também:
 
 ```bash
-rm -rf .expo .expo-shared
-npx expo start --clear --lan
+npx expo install react-native-web react-dom
 ```
 
 ---
