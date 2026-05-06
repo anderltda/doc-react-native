@@ -163,16 +163,6 @@ npx expo start
 
 ---
 
-# 🛠️ Instalando Axios
-
-O `fetch` já existe no JavaScript, mas o Axios precisa ser instalado.
-
-```bash
-npm install axios
-```
-
----
-
 # ✅ 6. GET com Fetch, TypeScript, Loading e Error
 
 ## Objetivo
@@ -788,6 +778,15 @@ controller.abort()
 
 Quando `abort()` é chamado, o fetch recebe um erro do tipo `AbortError`, que você pode tratar para evitar efeitos colaterais.
 
+# Axios tem suporte nativo a cancelamento usando `AbortController`:
+
+```ts
+  const response = await axios.get<User>('https://jsonplaceholder.typicode.com/users/1', {
+      signal: controller.signal,
+    }
+  );
+```      
+
 ---
 
 # ⚖️ 10. Fetch vs Axios
@@ -825,6 +824,16 @@ Desvantagens:
 
 - precisa instalar dependência
 - adiciona uma biblioteca ao projeto
+
+---
+
+# 🛠️ Instalando Axios
+
+O `fetch` já existe no JavaScript, mas o Axios precisa ser instalado.
+
+```bash
+npm install axios
+```
 
 ---
 
