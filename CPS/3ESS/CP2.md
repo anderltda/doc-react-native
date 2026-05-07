@@ -303,7 +303,6 @@ any
 - não usar service layer
 - não usar interceptors
 - não implementar TanStack Query
-- não implementar cache local
 - app não executar
 
 ---
