@@ -260,15 +260,23 @@ DATA DA ENTREGA:
 
 | Critério | Pontos |
 |---|---:|
-| Geração dinâmica via JSON | 2,0 |
+| Geração dinâmica via JSON | 3,0 |
 | Tipos de campos obrigatórios | 2,0 |
 | Validação dos campos | 1,5 |
-| Persistência com AsyncStorage | 1,5 |
 | Exibição do resultado | 1,0 |
 | TypeScript e ausência de `any` | 1,0 |
+| Persistência com AsyncStorage | 0,5 |
 | Organização e componentização | 0,5 |
 | Funcionamento Android/iOS/Web | 0,5 |
 | **Total** | **10,0** |
+
+
+# ATENÇÃO: O projeto será ZERADO caso:
+
+- O projeto não funcione em alguma plataforma
+- O formulario não tenha o funcionamento correto de acordo com o enunciado.
+- O projeto não seja entregue no GitHub
+- O projeto não tenha um README.md com as informações obrigatórias
 
 ---
 
