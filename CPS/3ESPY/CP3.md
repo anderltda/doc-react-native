@@ -218,14 +218,15 @@ O README deverá conter:
 - Nome completo dos integrantes
 - RM dos integrantes
 
-⚠️ Caso o README.md não contenha os integrantes com NOME e RM, o grupo receberá nota ZERO.
+⚠️ Caso o README.md não contenha os integrantes com NOME e RM, apenas quem enviar o link do repositório 
+no GitHub será considerado.
 
 Exemplo:
 
 ```md
 ## Integrantes
 
-- João da Silva — RM12345
+- João Silva — RM12345
 - Maria Souza — RM54321
 ```
 
@@ -248,6 +249,10 @@ Não será aceito:
 - arquivo .zip
 - Google Drive
 - código fora do GitHub
+
+DATA DA ENTREGA:
+
+- 18/05/2026
 
 ---
 
