@@ -243,7 +243,7 @@ npx expo install @react-native-async-storage/async-storage
 
 ---
 
-# 🚀 Diferenciais
+# 🚀 Diferenciais que podem aumentar a nota
 
 ## Possíveis diferenciais 
 - gráficos avançados
@@ -257,22 +257,73 @@ Conteúdo não foi dado em aula, mas pode ser pesquisado e implementado para enr
 
 ---
 
-# 👨‍💻 Integrantes
+# 🏆 Critérios de Avaliação
 
-| Nome | RM |
-|---|---|
-| Nome Completo | RM |
-| Nome Completo | RM |
+| Critério | Descrição | Peso |
+|---|---|---|
+| Estrutura do Projeto | Organização de pastas, componentização, arquitetura e boas práticas | 1,0 |
+| React Native + TypeScript | Uso correto de componentes, hooks, tipagem e reutilização | 1,0 |
+| Navegação | Implementação correta do React Navigation | 0,5 |
+| Consumo de API | Integração com APIs externas utilizando Fetch ou Axios | 1,5 |
+| Persistência Local | Uso de AsyncStorage para armazenamento local | 1,0 |
+| Interface (UI/UX) | Qualidade visual, responsividade, dark mode e experiência do usuário | 2,0 |
+| Funcionalidades | Funcionamento geral da aplicação e regras de negócio | 1,5 |
+| Código e Boas Práticas | Organização, legibilidade, separação de responsabilidades e padrão de código | 0,5 |
+| Criatividade e Inovação | Relação com o tema da indústria espacial e diferencial da solução | 1,0 |
 
 ---
 
-# ▶️ Executando o Projeto
+# ✅ Requisitos Obrigatórios
 
-## Executar
+O projeto obrigatoriamente deverá possuir:
 
-- Android
-- iOS
-- Web
+- React Native
+- Expo SDK 55
+- TypeScript
+- Navegação
+- Consumo de API
+- AsyncStorage
+- Organização de componentes
+- Interface funcional
+- README.md preenchido com instruções de execução, imagens e descrição do projeto
+- Execução em:
+  - Android
+  - iOS
+  - Web
+
+---
+
+# 📦 Entrega
+
+A entrega deverá conter:
+
+- link do repositório GitHub
+- código-fonte completo
+- Não pode conter "node_modules" no respositório
+- README preenchido
+- Até 5 integrantes por grupo com NOME e RM
+
+---
+
+# ⚠️ Observações
+
+- O aplicativo deverá estar funcional.
+- O projeto deve demonstrar os conceitos trabalhados durante as aulas.
+
+---
+
+# 🏁 Resultado Esperado
+
+Espera-se uma aplicação:
+
+- moderna
+- organizada
+- funcional
+- responsiva
+- reutilizável
+- com boa experiência visual
+- alinhada ao tema da Global Solution
+- utilizando boas práticas de desenvolvimento mobile
 
 ---
 
@@ -281,16 +332,3 @@ Conteúdo não foi dado em aula, mas pode ser pesquisado e implementado para enr
 - https://www.nasa.gov/
 - https://www.esa.int/
 - https://openweathermap.org/
-
----
-
-# 🏆 Resultado Esperado
-
-Ao final do projeto, espera-se uma aplicação mobile moderna, organizada e funcional, demonstrando:
-
-- boas práticas de desenvolvimento
-- arquitetura profissional
-- UI/UX moderna
-- integração com APIs
-- utilização de conceitos da indústria espacial
-- impacto social e tecnológico
