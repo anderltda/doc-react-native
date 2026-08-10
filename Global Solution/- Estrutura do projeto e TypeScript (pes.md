@@ -1,0 +1,21 @@
+- Estrutura do projeto e TypeScript (peso 30%)
+- Projeto organizado por pastas (screens, services, components)
+- TypeScript strict: interfaces tipadas, sem any, tipos explícitos
+- Enums e types para constantes e estados da aplicação
+- Código limpo e legível
+- Telas e navegação (peso 25%)
+- Mínimo de 3 telas funcionais com navegação entre elas
+- Uso de componentes React Native nativos (FlatList, ScrollView, Image, TextInput)
+- Formulários com validação de entrada
+- Feedback visual para ações do usuário (loading, erro, sucesso)
+- Gerenciamento de estado (peso 25%)
+- useState e useEffect tipados e utilizados corretamente
+- Estado da aplicação reflete as ações do usuário em tempo real
+- Fluxo de autenticação com tela de login funcional
+- Persistência local (peso 10%)
+- AsyncStorage para dados relevantes (preferências, sessão do usuário)
+- Dados persistidos sobrevivem ao fechamento do app
+- Documentação (peso 10%)
+- README.md com descrição do projeto e instruções de execução com Expo
+- Screenshots ou vídeo curto demonstrando o app
+- Tecnologias utilizadas
