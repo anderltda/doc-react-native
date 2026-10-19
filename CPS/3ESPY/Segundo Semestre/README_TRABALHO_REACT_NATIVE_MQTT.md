@@ -1,4 +1,4 @@
-# Trabalho Prático — Mobile Development & IoT
+# Checkpoint 3 — Mobile Development & IoT
 ## MQTT em React Native — Painel de Monitoramento e Controle IoT
 
 ### 1. Contexto
